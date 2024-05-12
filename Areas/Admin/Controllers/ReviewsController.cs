@@ -20,14 +20,14 @@ namespace fashion.Areas.Admin.Controllers
         }
 
         // GET: Admin/Reviews
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int ?id)
         {
             if (HttpContext.Session.GetInt32("IdUser") == null)
             {
                 return Redirect("/Admin");
             }
-            var fashionContext = _context.Reviews.Include(r => r.Customer).Include(r => r.Product);
-            return View(/*await fashionContext.ToListAsync()*/);
+            var fashionContext = _context.Reviews.Include(r => r.Customer).Include(r => r.Product).Where(r => r.ProductId == id);
+            return View(await fashionContext.ToListAsync());
         }
 
         // GET: Admin/Reviews/Details/5
@@ -170,5 +170,19 @@ namespace fashion.Areas.Admin.Controllers
         {
             return _context.Reviews.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> UpdateStatus(int? id, int status, int idp)
+        {
+            if (HttpContext.Session.GetInt32("IdUser") == null)
+            {
+                return Redirect("/Admin");
+            }
+            var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
+            review.Status = status;
+            _context.Reviews.Update(review);
+            _context.SaveChanges();
+            return Redirect("/Admin/Reviews/Index/"+ idp);
+        }
+
     }
 }
