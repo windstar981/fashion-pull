@@ -20,4 +20,8 @@ public partial class OrderHistory
     public int? CreatedBy { get; set; }
 
     public int? UpdatedBy { get; set; }
+
+    public virtual Order? Order { get; set; }
+
+    public virtual User? User { get; set; }
 }

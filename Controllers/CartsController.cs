@@ -380,9 +380,11 @@ namespace fashion.Controllers
             Order od = new Order();
             od.TotalPrice = totalPrice;
             od.Note = note;
+            od.Fee = fee;
             od.CreatedAt = (int)secondsSinceEpoch;
             od.CustomerId = cusId;
             od.OrderDate = currentTimeWithoutMilliseconds;
+            od.Status = 1;
 
             _context.Orders.Add(od);
             _context.SaveChanges();
@@ -414,6 +416,14 @@ namespace fashion.Controllers
                 }
             }
             _context.OrderDetails.AddRange(orderDetails);
+            _context.SaveChanges();
+
+            // lưu lại logs order history
+            OrderHistory oh = new OrderHistory();
+            oh.OrderId = idOrder;
+            oh.Description = "Customer create order";
+            oh.CreatedAt = (int)secondsSinceEpoch;
+            _context.OrderHistories.Add(oh);
             _context.SaveChanges();
 
             // bổ xung thêm gửi mail 

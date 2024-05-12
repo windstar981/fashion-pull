@@ -172,7 +172,7 @@
                                                     <div class="add-product__lazy-preloader swiper-lazy-preloader"></div>
                                                 </div>
                                             }
-                                            
+
                                         </div>
                                     </div>
                                     <div class="add-product__thumbs-prev">
@@ -200,10 +200,10 @@
                                                 </div>
                                             }
                                             @* <div class="add-product__gallery-slide swiper-slide">
-                                                <img class="add-product__gallery-image swiper-lazy" src="img/content/product/item-1.jpg" srcset="img/content/product/item-1.jpg 2x" alt="#">
-                                                <div class="add-product__lazy-preloader swiper-lazy-preloader"></div>
+                                            <img class="add-product__gallery-image swiper-lazy" src="img/content/product/item-1.jpg" srcset="img/content/product/item-1.jpg 2x" alt="#">
+                                            <div class="add-product__lazy-preloader swiper-lazy-preloader"></div>
                                             </div> *@
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -257,17 +257,17 @@
                                         <div class="input-group input-group--append">
                                             <input name="brand" class="input" value="@ViewBag.Brand.Name" readonly>
                                             @* <select class="input js-input-select input--fluid" name="brands" data-placeholder="">
-                                                @foreach (var brand in ViewBag.Brands)
-                                                {
-                                                    <option value="@brand.Id">
-                                                        @brand.Name
-                                                    </option>
-                                                }
+                                            @foreach (var brand in ViewBag.Brands)
+                                            {
+                                            <option value="@brand.Id">
+                                            @brand.Name
+                                            </option>
+                                            }
                                             </select> *@
                                             @* <span class="input-group__arrow">
-                                                <svg class="icon-icon-keyboard-down">
-                                                    <use xlink:href="#icon-keyboard-down"></use>
-                                                </svg>
+                                            <svg class="icon-icon-keyboard-down">
+                                            <use xlink:href="#icon-keyboard-down"></use>
+                                            </svg>
                                             </span> *@
                                         </div>
                                     </div>
@@ -300,14 +300,14 @@
                                     }
                                 </div>
                                 @* <div class="add-product__submit">
-                                    <div class="modal__footer-button">
-                                        <button class="button button--primary button--block" data-dismiss="modal" data-modal="#addProductSuccess">
-                                            <span class="button__text">Create</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal__footer-button">
-                                        <a class="button button--secondary button--block" href="products.html"><span class="button__text">Cancel</span></a>
-                                    </div>
+                                <div class="modal__footer-button">
+                                <button class="button button--primary button--block" data-dismiss="modal" data-modal="#addProductSuccess">
+                                <span class="button__text">Create</span>
+                                </button>
+                                </div>
+                                <div class="modal__footer-button">
+                                <a class="button button--secondary button--block" href="products.html"><span class="button__text">Cancel</span></a>
+                                </div>
                                 </div> *@
                             </div>
                         </div>
@@ -317,7 +317,7 @@
         </div>
     </div>
 </main>
- 
+
 @* <div class="modal modal-compact modal-success" id="addProductSuccess">
     <div class="modal__overlay" data-dismiss="modal"></div>
     <div class="modal__wrap">
@@ -438,8 +438,8 @@
                                         @foreach (var category in ViewBag.CategoryId)
                                         {
                                             @* <option value="@category.Id">
-                                                @category.Name
-                                            </option> *@
+                                        @category.Name
+                                        </option> *@
                                             @if (category.Id == ViewBag.Categories.Id)
                                             {
                                                 <option value="@category.Id" selected>@category.Name</option>
@@ -457,12 +457,12 @@
                                     <div class="col-12 form-group form-group--lg mb-0">
                                         <label class="form-label">@attr.Name</label>
                                         @* <select asp-for="LnkProductAttributes" class="input js-input-tags" multiple="multiple" data-placeholder=""> *@
-                                        <select name="@attr.Name" class="input js-input-tags" multiple="multiple" data-placeholder=""> 
+                                        <select name="@attr.Name" class="input js-input-tags" multiple="multiple" data-placeholder="">
                                             @foreach (var item in ViewData[attr.Name])
                                             {
                                                 @* <option value="@item.Id">
-                                                    @item.Name
-                                                </option> *@
+                                        @item.Name
+                                        </option> *@
                                                 @if (item.Id == ViewData[attr.Name].Id)
                                                 {
                                                     <option value="@item.Id" selected>@item.Name</option>
@@ -541,46 +541,46 @@
                                         </ul>
                                     </div>
                                 </div>
-                        
+
                                 <button class="button button--primary button--block" type="submit">
                                     <span class="button__text">Save</span>
                                 </button>
                             </div>
-                    
+
                         </form>
                     </div>
                 </div>
                 @* <div class="modal__footer">
-                    <div class="modal__container">
-                        <div class="modal__footer-buttons">
-                            <div class="modal__footer-button">
-                                <button class="button button--primary button--block" data-dismiss="modal" data-modal="#addProductSuccess">
-                                    <span class="button__text">Create</span>
-                                </button>
-                            </div> 
-                            <div class="modal__footer-button">
-                                <button class="button button--secondary button--block" data-dismiss="modal">
-                                    <span class="button__text">Cancel</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal__container">
+                <div class="modal__footer-buttons">
+                <div class="modal__footer-button">
+                <button class="button button--primary button--block" data-dismiss="modal" data-modal="#addProductSuccess">
+                <span class="button__text">Create</span>
+                </button>
+                </div>
+                <div class="modal__footer-button">
+                <button class="button button--secondary button--block" data-dismiss="modal">
+                <span class="button__text">Cancel</span>
+                </button>
+                </div>
+                </div>
+                </div>
                 </div> *@
 
 
                 @* <div class="modal-compact__buttons">
-                    <div class="modal-compact__button-item">
-                        <button class="modal-compact__button button" data-dismiss="modal" data-modal="#editProduct">
-                            <span class="button__text">Edit product</span>
-                        </button>
-                    </div> 
-                    <div class="modal-compact__button-item">
-                        <button class="modal-compact__button button" data-dismiss="modal">
-                            <span class="button__text">Close</span>
-                        </button>
-                    </div> 
+                <div class="modal-compact__button-item">
+                <button class="modal-compact__button button" data-dismiss="modal" data-modal="#editProduct">
+                <span class="button__text">Edit product</span>
+                </button>
+                </div>
+                <div class="modal-compact__button-item">
+                <button class="modal-compact__button button" data-dismiss="modal">
+                <span class="button__text">Close</span>
+                </button>
+                </div>
                 </div> *@
-            </div>                
+            </div>
         </div>
     </div>
 </div>

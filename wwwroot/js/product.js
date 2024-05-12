@@ -104,17 +104,20 @@
         handleSearch();
     });
 
-    $('.rate').click(function () {
-        let id = $(this).attr('id');
+    $('.rate-review').click(function () {
+        let numberStart = $(this).attr('number-star');
         let $inputStar = $('input[name="star"]');
+        console.log('vao day');
+        $('.rate-review').removeClass('fas');
+        /*$('.rate-review').addClass('far');*/
 
-        $('.rate').removeClass('fas').addClass('far');
+        for (let i = 1; i <= Number(numberStart); i++) {
+            console.log(i);
 
-        for (let i = 1; i <= Number(id); i++) {
-            $("#" + i).removeClass('far').addClass('fas');
+            $("#rate_" + i.toString()).addClass('fas');
         }
 
-        $inputStar.val(id);
+        $inputStar.val(numberStart);
     });
 
     $('.button-minus').click(function () {

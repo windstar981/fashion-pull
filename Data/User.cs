@@ -12,4 +12,6 @@ public partial class User
     public string? UserName { get; set; }
 
     public string? Pd { get; set; }
+
+    public virtual ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
 }

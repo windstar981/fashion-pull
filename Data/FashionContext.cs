@@ -301,6 +301,14 @@ public partial class FashionContext : DbContext
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.OrderHistories)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("fk_order_history");
+
+            entity.HasOne(d => d.User).WithMany(p => p.OrderHistories)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("fk_user_history");
         });
 
         modelBuilder.Entity<Product>(entity =>

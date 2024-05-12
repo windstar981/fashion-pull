@@ -34,31 +34,41 @@ namespace fashion.Areas.Admin.Controllers
         }
 
         // GET: Admin/Orders/Order_Status
-        public async Task<IActionResult> OrderStatus()
+        public async Task<IActionResult> OrderStatus(int? id)
         {
-            var fashionContext = _context.Orders.Include(o => o.Customer);
-            return View(/*await fashionContext.ToListAsync()*/);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            var finalHandler = _context.OrderHistories.Include(o => o.User).Where(o => o.OrderId == id).OrderByDescending(o => o.Id).FirstOrDefault();
+            if(finalHandler == null)
+            {
+                ViewBag.FinalHandler = null;
+            }
+            else
+            {
+                ViewBag.FinalHandler = finalHandler;
+            }
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
         }
 
         // GET: Admin/Orders/Order_Invoice
-        public async Task<IActionResult> Order_Invoice()
+        public async Task<IActionResult> OrderHistory(int ?id)
         {
-            var fashionContext = _context.OrderDetails.Include(o => o.Order).Include(o => o.Product);
-            return View(/*await fashionContext.ToListAsync()*/);
-        }
-
-        // GET: Admin/Orders/Order_Notes
-        public async Task<IActionResult> Order_Notes()
-        {
-            var fashionContext = _context.Orders.Include(o => o.Customer);
-            return View(/*await fashionContext.ToListAsync()*/);
-        }
-
-        // GET: Admin/Orders/Order_Messages
-        public async Task<IActionResult> Order_Messages()
-        {
-            var fashionContext = _context.Orders.Include(o => o.Customer);
-            return View(/*await fashionContext.ToListAsync()*/);
+            var histories = _context.OrderHistories.Include(o => o.User).Include( o=> o.Order).Where(o => o.OrderId == id);
+            ViewBag.OrderId = id;
+            return View(await histories.ToListAsync());
         }
 
         // GET: Admin/Orders/Details/5
@@ -71,6 +81,8 @@ namespace fashion.Areas.Admin.Controllers
 
             var order = await _context.Orders
                 .Include(o => o.Customer)
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
@@ -195,5 +207,35 @@ namespace fashion.Areas.Admin.Controllers
         {
             return _context.Orders.Any(e => e.Id == id);
         }
+
+        // GET: Admin/Orders/Order_Status
+        public async Task<IActionResult> AddOrderHistory(int id, int status)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var od = _context.Orders.Where(o => o.Id == id).FirstOrDefault();
+            od.Status = status;
+            _context.Orders.Update(od);
+            _context.SaveChanges();
+
+            // lưu lại logs ở bảng order history
+            DateTime currentTime = DateTime.Now;
+            long secondsSinceEpoch = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
+
+            var userId = HttpContext.Session.GetInt32("IdUser");
+            OrderHistory oh = new OrderHistory();
+            oh.Description = "Update status order to " + status;
+            oh.OrderId = id;
+            oh.UserId = userId;
+            oh.CreatedAt = (int)secondsSinceEpoch;
+            _context.OrderHistories.Add(oh);
+            _context.SaveChanges();
+
+            return Redirect("/Admin/Orders/OrderStatus/"+id);
+        }
+
     }
 }

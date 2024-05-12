@@ -201,4 +201,12 @@
         console.log(url);
         window.location.href = url;
     });
+
+    $('#add-order-history').click(function () {
+        let status = $('#select-status-order').val();;
+        let id = $(this).attr('id-product');
+        let url = 'http://localhost:5074/Admin/Orders/AddOrderHistory?id=' + id + '&status=' + status;
+        window.location.href = url;
+    });
+
 });

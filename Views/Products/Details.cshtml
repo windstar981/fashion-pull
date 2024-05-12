@@ -125,13 +125,13 @@
                     @if (ViewBag.Img != null && ViewBag.Img.Count > 0)
                     {
                         <div class="carousel-item active">
-                            <img class="w-100 h-100" src="~/@ViewBag.Img[0]" alt="First Image">
+                            <img  src="~/@ViewBag.Img[0]" alt="First Image">
                         </div>
                     }
 
                     @foreach (var img in ((List<string>)ViewBag.Img).Skip(1))
                     {
-                        <div class="carousel-item">
+                        <div class="carousel-item" style="width: 200px; height: 200px;">
                             <img class="w-100 h-100" src="~/@img" alt="Image">
                         </div>
                     }
@@ -183,20 +183,25 @@
             </div>
             <h3 class="font-weight-semi-bold mb-4">$@ViewBag.Product.Price</h3>
             <p class="mb-4">@ViewBag.Product.Abstract</p>
-            <div class="d-flex mb-3">
-                @foreach (var data in ViewBag.AllAttr)
-                {
-                    <p class="text-dark font-weight-medium mb-0 mr-3">@data.Name:</p>
-                    <form>
-                        @foreach (var item in ViewData[data.Name])
-                        {
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="@item.Id" name="@data.Name">
-                                <label class="custom-control-label" for="@item.Id">@item.Name</label>
-                            </div>
-                        }
-                    </form>
-                }
+            <div class="mb-3">
+                <div class="row">
+                    @foreach (var data in ViewBag.AllAttr)
+                    {
+                        <div class="col-12 mt-3">
+                            <p class="text-dark font-weight-medium mb-0 mr-3">@data.Name:</p>
+                            <form>
+                                @foreach (var item in ViewData[data.Name])
+                                {
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" id="@item.Id" name="@data.Name">
+                                        <label class="custom-control-label" for="@item.Id">@item.Name</label>
+                                    </div>
+                                }
+                            </form>
+                        </div>
+                    }
+                </div>
+                
             </div>
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 130px;">
@@ -317,11 +322,11 @@
                             <div class="d-flex my-3">
                                 <p class="mb-0 mr-2">Your Rating * :</p>
                                 <div class="text-primary" name="rating">
-                                    <i id="1" class="far fa-star rate"></i>
-                                    <i id="2" class="far fa-star rate"></i>
-                                    <i id="3" class="far fa-star rate"></i>
-                                    <i id="4" class="far fa-star rate"></i>
-                                    <i id="5" class="far fa-star rate"></i>
+                                    <i id="rate_1" number-star="1" class="far fa-star rate-review"></i>
+                                    <i id="rate_2" number-star="2"  class="far fa-star rate-review"></i>
+                                    <i id="rate_3" number-star="3" class="far fa-star rate-review"></i>
+                                    <i id="rate_4" number-star="4" class="far fa-star rate-review"></i>
+                                    <i id="rate_5" number-star="5" class="far fa-star rate-review"></i>
                                     @* <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
                                     <i class="far fa-star"></i>
@@ -340,7 +345,7 @@
                                     <label for="name">Your Name *</label>
                                     @if (ViewBag.Customer != null) 
                                     {
-                                        <input type="text" class="form-control" id="name" value="@ViewBag.Customer.Name">
+                                        <input type="text" class="form-control" id="name" value="@ViewBag.Customer.Name" disabled>
                                     }
                                     else 
                                     {
@@ -351,7 +356,7 @@
                                     <label for="email">Your Email *</label>
                                     @if (ViewBag.Customer != null)
                                     {
-                                        <input type="text" class="form-control" id="name" value="@ViewBag.Customer.Email">
+                                        <input type="text" class="form-control" id="name" value="@ViewBag.Customer.Email" disabled>
                                     }
                                     else
                                     {
